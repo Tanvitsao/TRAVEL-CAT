@@ -1,3 +1,9 @@
 module.exports = {
-  baseUrl: '/TRAVEL-CAT/'
+  baseUrl: '/TRAVEL-CAT/',
+  outputDir: undefined,
+  assetsDir: undefined,
+  runtimeCompiler: undefined,
+  productionSourceMap: undefined,
+  parallel: undefined,
+  css: undefined
 }
