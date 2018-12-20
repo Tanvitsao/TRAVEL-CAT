@@ -84,7 +84,7 @@ import $ from 'jquery';
                 $('#cartModal').modal('show');
             },
             getCart(id){
-                const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
                 const vm = this;
                 vm.status.loadingItem = id;
                 this.$http.get(api).then((response) => {
@@ -96,7 +96,7 @@ import $ from 'jquery';
                 })
             },
             removeCartItem(id){
-                const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart/${id}`;
+                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
                 const vm = this;
                 vm.isLoading = true;
                 this.$http.delete(api).then((response) => {

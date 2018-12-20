@@ -51,7 +51,7 @@ import $ from 'jquery';
         },
         methods: {
             getProducts(page = 1){
-                const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products/all`;
+                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
                 const vm = this;
                 vm.isLoading = true;
                 this.$http.get(api).then((response) => {
@@ -65,7 +65,7 @@ import $ from 'jquery';
                 })
             },
             getProduct(id){
-                const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${id}`;
+                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
                 const vm = this;
                 vm.status.loadingItem = id;
                 this.$http.get(api).then((response) => {
@@ -75,7 +75,7 @@ import $ from 'jquery';
                 })
             },
             addtoCart(id, qty = 1){
-                const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
                 const vm = this;
                 vm.status.loadingItem = id;
                 const cart = {
