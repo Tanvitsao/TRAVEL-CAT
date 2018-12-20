@@ -109,7 +109,7 @@ import $ from 'jquery';
             movetoPayment(){
                 if(this.cartProducts.length !== 0){
                     this.$router.push('/customer_checkout');
-                    $('#cartModal').modal('hide');           
+                    $('#cartModal').modal('hide');         
                 }else{
                     alert('您還沒選購商品唷！')
                 }

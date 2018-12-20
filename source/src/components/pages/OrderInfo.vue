@@ -97,7 +97,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="username">收件人電話</label>
+                            <label for="usertel">收件人電話</label>
                             <input type="tel" class="form-control" name="tel" id="usertel"
                                 :class="{'is-invalid': errors.has('tel')}"
                                 v-model="form.user.tel" v-validate="'required'" placeholder="請輸入電話">
@@ -113,8 +113,8 @@
                         </div>
                     
                         <div class="form-group">
-                        <label for="useraddress">留言</label>
-                        <textarea name="" id="" class="form-control" cols="30" rows="10" v-model="form.message"></textarea>
+                        <label for="usercontent">留言</label>
+                        <textarea name="" id="usercontent" class="form-control" cols="30" rows="10" v-model="form.message"></textarea>
                         </div>
                         <div class="text-right">
                         <button class="btn btn-secondary">送出訂單</button>
