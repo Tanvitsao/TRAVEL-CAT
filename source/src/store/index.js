@@ -47,5 +47,16 @@ export default new Vuex.Store({
         SEARCHTEXT(state, payload) {
             state.searchText = payload;
         }
-    }
+    },
+    getters: {
+        text(state) {
+            return state.searchText;
+        },
+        products(state) {
+            return state.products;
+        },
+        // categories(state) {
+        //     return state.categories;
+        // }
+    },
 });

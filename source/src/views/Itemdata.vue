@@ -55,6 +55,8 @@
 
 <script>
 import $ from 'jquery';
+import { mapGetters } from 'vuex';
+
     export default{
         data(){
             return{
@@ -98,9 +100,7 @@ import $ from 'jquery';
             }
         },
         computed: {
-            text() {
-                return this.$store.state.searchText;
-            }
+            ...mapGetters(['text']),
         },
         created(){
             this.itemId = this.$route.params.itemId;

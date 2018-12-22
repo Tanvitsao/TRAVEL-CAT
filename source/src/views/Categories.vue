@@ -65,6 +65,8 @@
 
 <script>
 import $ from 'jquery';
+import { mapGetters, mapActions } from 'vuex';
+
     export default{
         data() {
             return {
@@ -76,9 +78,7 @@ import $ from 'jquery';
             }
         },
         methods: {
-            getProducts(){
-                this.$store.dispatch('getProducts');
-            },
+            ...mapActions(['getProducts']),
             getProduct(id){
                 const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
                 const vm = this;
@@ -108,12 +108,6 @@ import $ from 'jquery';
             }
         },
         computed: {
-            // categories() {
-            //     return this.$store.state.categories;
-            // },
-            products() {
-                return this.$store.state.products;
-            },
             filterData() {
                 const vm = this;
                 if (vm.$store.state.searchText !== '全部地區') {
@@ -124,9 +118,7 @@ import $ from 'jquery';
                 }
                 return this.products;
             },
-            text() {
-                return this.$store.state.searchText;
-            }
+            ...mapGetters(['text', 'products']),
         },
         created() {
             this.getProducts();
