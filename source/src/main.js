@@ -1,3 +1,6 @@
+/* eslint-disable import/no-named-as-default */
+/* eslint-disable import/no-named-as-default-member */
+/* eslint-disable import/no-unresolved */
 // 引入第三方套件
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -16,8 +19,8 @@ import store from './store';
 import './bus';
 import AlertMessage from '@/components/AlertMessage.vue';
 import pagination from '@/components/Pagination.vue';
-import currencyFilter from '@/filters/currency.js';
-import dateFilter from '@/filters/date.js';
+import currencyFilter from '@/filters/currency';
+import dateFilter from '@/filters/date';
 
 Vue.config.productionTip = false;
 Vue.use(Vuex);
@@ -26,7 +29,7 @@ Vue.use(VueAxios, axios);
 Vue.use(VeeValidate);
 VeeValidate.Validator.localize('zg_TW', zhTWValidate);
 
-//載入全域元件
+// 載入全域元件
 Vue.component('Loading', Loading);
 Vue.component('AlertMessage', AlertMessage);
 Vue.component('pagination', pagination);
