@@ -6,38 +6,38 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="row">
-                            <router-link to="/honshu" class="col-10 mr-auto ml-auto mb-2 hotspot-1 d-flex align-items-center justify-content-center">
+                            <a href="#" @click.prevent="changeText('本州')" class="col-10 mr-auto ml-auto mb-2 hotspot-1 d-flex align-items-center justify-content-center">
                                 <h2 class="h2 text-light">
                                     本州
                                 </h2>
-                            </router-link>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="row">
-                            <router-link to="/hokkaido" class="col-10 mr-auto ml-auto mb-2 hotspot-2 d-flex align-items-center justify-content-center">
+                            <a href="#" @click.prevent="changeText('北海道')" class="col-10 mr-auto ml-auto mb-2 hotspot-2 d-flex align-items-center justify-content-center">
                                 <div class="h2 text-light">
                                     北海道
                                 </div>    
-                            </router-link>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="row">
-                            <router-link to="/shikoku" class="col-10 mr-auto ml-auto mb-2 hotspot-3 d-flex align-items-center justify-content-center">
+                            <a href="#" @click.prevent="changeText('四國')" class="col-10 mr-auto ml-auto mb-2 hotspot-3 d-flex align-items-center justify-content-center">
                                 <div class="h2 text-light">
                                     四國
                                 </div>
-                            </router-link>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="row">
-                            <router-link to="/kyushu" class="col-10 mr-auto ml-auto mb-2 hotspot-4 d-flex align-items-center justify-content-center">
+                            <a href="#" @click.prevent="changeText('九州')" class="col-10 mr-auto ml-auto mb-2 hotspot-4 d-flex align-items-center justify-content-center">
                                 <div class="h2 text-light">
                                     九州
                                 </div>
-                            </router-link>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -59,5 +59,11 @@ import AllproductCard from '@/components/AllproductCard.vue';
         components: {
             AllproductCard
         },
+        methods: {
+            changeText(place) {
+                this.$store.dispatch('changeText', place);
+                this.$router.push(`/categories`);
+            }
+        }
     }
 </script>

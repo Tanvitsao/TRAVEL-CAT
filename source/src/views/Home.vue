@@ -1,5 +1,6 @@
 <template>
     <div>
+        <loading :active.sync="isLoading"></loading>
         <nav class="navbar navbar-expand navbar-light bg-light">
             <router-link class="navbar-brand navbar-logo" to="/">
                 <i class="fas fa-cat fa-1x mr-1"></i>
@@ -79,9 +80,14 @@
 
 <script>
 import CartModal from "@/components/CartModal.vue";
-export default{
+export default {
     components: {
         CartModal,
+    },
+    computed: {
+        isLoading(){
+            return this.$store.state.isLoading;
+        }
     }
 }
 </script>

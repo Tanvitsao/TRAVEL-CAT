@@ -1,6 +1,5 @@
 <template>
     <div>
-        <loading :active.sync="isLoading"></loading>
         <div class="text-right mt-4">
             <button class="btn btn-primary" @click="openModal(true)">建立新的優惠券</button>
         </div>
@@ -120,17 +119,16 @@ import $ from 'jquery';
                 tempCoupon: {},
                 pagination: {},
                 isNew: false,
-                isLoading: false,
             }
         },
         methods: {
             getCoupons(page = 1){
                 const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`;
                 const vm = this;
-                vm.isLoading = true;
+                vm.$store.dispatch('updateLoading', true);
                 this.$http.get(api).then((response) => {
                 console.log(response.data)
-                vm.isLoading = false;
+                vm.$store.dispatch('updateLoading', false);
                 vm.coupons = response.data.coupons;
                 vm.pagination = response.data.pagination;
                 })

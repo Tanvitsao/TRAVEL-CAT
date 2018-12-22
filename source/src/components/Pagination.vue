@@ -36,6 +36,6 @@
             changePage(page){
                 this.$emit('changePage', page)
             }
-        }
+        },
     }
 </script>

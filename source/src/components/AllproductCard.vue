@@ -33,7 +33,6 @@
                 </div>
             </div>
         </div>
-        <!-- <pagination :page-data="pagination" @changePage="getProducts" class="d-flex justify-content-center mb-4"></pagination> -->
     </div>
 </template>
 
@@ -44,23 +43,20 @@ import $ from 'jquery';
             return{
                 products: [],
                 product: {},
-                isLoading: false,
                 status: {
                     loadingItem: '',
                 },
-                // pagination: {},
             }
         },
         methods: {
             getProducts(page = 1){
                 const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
                 const vm = this;
-                vm.isLoading = true;
+                vm.$store.dispatch('updateLoading', true);
                 this.$http.get(api).then((response) => {
                 console.log(response.data)
-                vm.isLoading = false;
+                vm.$store.dispatch('updateLoading', false);
                 vm.products = response.data.products;
-                // vm.pagination = response.data.pagination;
                 })
             },
             getProduct(id){

@@ -20,29 +20,9 @@ export default new Router({
           component: () => import('./views/Allproduct.vue'),
         },
         {
-          path: 'honshu',
-          name: 'Honshu',
-          component: () => import('./views/Honshu.vue'),
-        },
-        {
-          path: 'hokkaido',
-          name: 'Hokkaido',
-          component: () => import('./views/Hokkaido.vue'),
-        },
-        {
-          path: 'shikoku',
-          name: 'Shikoku',
-          component: () => import('./views/Shikoku.vue'),
-        },
-        {
-          path: 'kyushu',
-          name: 'Kyushu',
-          component: () => import('./views/Kyushu.vue'),
-        },
-        {
-          path: 'okinawa',
-          name: 'Okinawa',
-          component: () => import('./views/Okinawa.vue'),
+          path: '/categories',
+          name: 'Categories',
+          component: () => import('./views/Categories.vue'),
         },
         {
           path: 'itemdata/:itemId',

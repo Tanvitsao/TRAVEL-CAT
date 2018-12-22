@@ -1,7 +1,6 @@
 <template>
     <div>
         <AlertMessage></AlertMessage>
-        <loading :active.sync="isLoading"></loading>
         <div class="bg-light pb-5">
             <div class="container">
                 <nav aria-label="breadcrumb" class="pt-4">
@@ -60,7 +59,6 @@ import $ from 'jquery';
         data(){
             return{
                 itemId: '',
-                isLoading: false,
                 item: {},
                 itemNum: '1',
                 status: {
@@ -73,12 +71,11 @@ import $ from 'jquery';
             getItem(){
                 const vm = this;
                 const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${vm.itemId}`;
-                vm.isLoading = true;
+                vm.$store.dispatch('updateLoading', true);
                 this.$http.get(api).then((response) => {
                 console.log(response.data)
                 vm.item = response.data.product;
-                console.log(this.item)
-                vm.isLoading = false;
+                vm.$store.dispatch('updateLoading', false);
                 })
             },
             addtoCart(id, qty = 1){

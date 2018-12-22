@@ -1,6 +1,5 @@
 <template>
     <div>
-        <loading :active.sync="isLoading"></loading>
         <div class="row mt-4">
             <div class="col-md-4 mb-4" v-for="item in products" :key="item.id">
                 <div class="card border-0 shadow-sm h-100">
@@ -184,7 +183,6 @@ import $ from 'jquery';
                 status: {
                     loadingItem: '',
                 },
-                isLoading: false,
                 coupon_code: '',
                 findCoupon: '',
                 form: {
@@ -202,12 +200,11 @@ import $ from 'jquery';
             getProducts(page = 1){
                 const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
                 const vm = this;
-                vm.isLoading = true;
+                vm.$store.dispatch('updateLoading', true);
                 this.$http.get(api).then((response) => {
                 console.log(response.data)
-                vm.isLoading = false;
+                vm.$store.dispatch('updateLoading', false);
                 vm.products = response.data.products;
-                // vm.pagination = response.data.pagination;
                 })
             },
             getProduct(id){
@@ -250,9 +247,9 @@ import $ from 'jquery';
             removeCartItem(id){
                 const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
                 const vm = this;
-                vm.isLoading = true;
+                vm.$store.dispatch('updateLoading', true);
                 this.$http.delete(api).then(() => {
-                vm.isLoading = false;
+                vm.$store.dispatch('updateLoading', false);
                 vm.getCart();
                 })
             },
@@ -262,10 +259,10 @@ import $ from 'jquery';
                 const coupon = {
                     code: vm.coupon_code,
                 };
-                vm.isLoading = true;
+                vm.$store.dispatch('updateLoading', true);
                 this.$http.post(api, {data: coupon}).then((response) => {
                     console.log(response.data)
-                    vm.isLoading = false;
+                    vm.$store.dispatch('updateLoading', false);
                     vm.getCart();
                     if(!response.data.success){
                         vm.findCoupon = response.data.message;
@@ -278,12 +275,12 @@ import $ from 'jquery';
                 const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
                 const vm = this;
                 const order = vm.form;
-                // vm.isLoading = true;
+                vm.$store.dispatch('updateLoading', true);
                  this.$validator.validate().then((result) => {
                     if (result) {
                         this.$http.post(api, {data: order}).then((response) => {
                             console.log('訂單已建立', response.data)
-                            vm.isLoading = false;
+                            vm.$store.dispatch('updateLoading', false);
                             if(response.data.success){
                                 vm.$router.push(`/customer_checkout/payment/${response.data.orderId}`)
                             }

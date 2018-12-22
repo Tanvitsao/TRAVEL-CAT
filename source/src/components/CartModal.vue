@@ -76,7 +76,6 @@ import $ from 'jquery';
                 status: {
                     loadingItem: '',
                 },
-                isLoading: false,
             }
         },
         methods: {
@@ -98,10 +97,10 @@ import $ from 'jquery';
             removeCartItem(id){
                 const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
                 const vm = this;
-                vm.isLoading = true;
+                vm.$store.dispatch('updateLoading', true);
                 this.$http.delete(api).then((response) => {
                 console.log(response)
-                vm.isLoading = false;
+                vm.$store.dispatch('updateLoading', false);
                 vm.getCart();
                 vm.$bus.$emit('message:push', '從購物車移除囉！', 'warning');
                 })

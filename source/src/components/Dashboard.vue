@@ -1,5 +1,6 @@
 <template>
     <div>
+        <loading :active.sync="isLoading"></loading>
         <Navbar></Navbar>
         <Alert></Alert>
         <div class="container-fluid">
@@ -23,6 +24,11 @@ export default {
         Navbar,
         Sidebar,
         Alert
+    },
+    computed: {
+        isLoading(){
+            return this.$store.state.isLoading;
+        }
     }
 }
 
