@@ -6,7 +6,7 @@
                 <nav aria-label="breadcrumb" class="pt-4">
                     <ol class="breadcrumb pl-0">
                         <li class="breadcrumb-item"><router-link to="/">首頁</router-link></li>
-                        <li class="breadcrumb-item"><router-link to="/honshu">本州</router-link></li>
+                        <li class="breadcrumb-item"><a href="#" @click.prevent="changePage">{{ text }}</a></li>
                         <li class="breadcrumb-item active" aria-current="page">{{ item.title }}</li>
                     </ol>
                 </nav>
@@ -93,6 +93,14 @@ import $ from 'jquery';
                 vm.$bus.$emit('message:push', '加到購物車囉！', 'success');
                 })
             },
+            changePage() {
+                this.$router.push(`/categories`);
+            }
+        },
+        computed: {
+            text() {
+                return this.$store.state.searchText;
+            }
         },
         created(){
             this.itemId = this.$route.params.itemId;
