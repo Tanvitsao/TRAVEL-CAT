@@ -12,6 +12,10 @@ export default new Vuex.Store({
     products: [],
     // categories: [],
     searchText: '',
+    cartProducts: [],
+    status: {
+      loadingItem: '',
+    },
   },
   actions: {
     updateLoading(context, status) {
@@ -29,6 +33,16 @@ export default new Vuex.Store({
     },
     changeText(context, place) {
       context.commit('SEARCHTEXT', place);
+    },
+    getCart(context, id) {
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+      context.commit('LOADINGITEM', id);
+      axios.get(api).then((response) => {
+        // console.log(response.data)
+        context.commit('CARTPRODUCTS', response.data.data.carts);
+        context.commit('CARTFINALPRICE', response.data.data.final_total);
+        context.commit('LOADINGITEM', '');
+      });
     },
   },
   mutations: {
@@ -48,6 +62,15 @@ export default new Vuex.Store({
     SEARCHTEXT(state, payload) {
       state.searchText = payload;
     },
+    CARTPRODUCTS(state, payload) {
+      state.cartProducts = payload;
+    },
+    CARTFINALPRICE(state, payload) {
+      state.cartFinalPrice = payload;
+    },
+    LOADINGITEM(state, payload) {
+      state.status.loadingItem = payload;
+    },
   },
   getters: {
     text(state) {
@@ -59,5 +82,11 @@ export default new Vuex.Store({
     // categories(state) {
     //     return state.categories;
     // }
+    cartProducts(state) {
+      return state.cartProducts;
+    },
+    cartProductsLength(state) {
+      return state.cartProducts.length;
+    },
   },
 });

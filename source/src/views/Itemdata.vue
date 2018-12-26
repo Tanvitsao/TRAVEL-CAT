@@ -80,6 +80,9 @@ import { mapGetters } from 'vuex';
                 vm.$store.dispatch('updateLoading', false);
                 })
             },
+            getCart(id){
+                this.$store.dispatch('getCart', id);
+            },
             addtoCart(id, qty = 1){
                 const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
                 const vm = this;
@@ -91,7 +94,7 @@ import { mapGetters } from 'vuex';
                 this.$http.post(api, {data: cart}).then((response) => {
                 console.log(response.data)
                 vm.status.loadingItem = '';
-                // vm.getCart();
+                vm.getCart();
                 vm.$bus.$emit('message:push', '加到購物車囉！', 'success');
                 })
             },
@@ -105,6 +108,7 @@ import { mapGetters } from 'vuex';
         created(){
             this.itemId = this.$route.params.itemId;
             this.getItem();
+            this.getCart();
         }
     }
 </script>

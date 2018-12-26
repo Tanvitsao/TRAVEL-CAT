@@ -3,7 +3,7 @@
         <AlertMessage></AlertMessage>
         <div @click="openCart">
             <img src="@/assets/img/shopping-cart.png" class="cart-position" alt="">
-            <span class="badge badge-danger cart-number-position">{{ cartProducts.length }}</span>
+            <span class="badge badge-danger cart-number-position">{{ cartProductsLength }}</span>
         </div>
         <!-- Modal -->
         <div class="modal fade bd-example-modal-lg" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -17,7 +17,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-5">
-                            <table v-if="cartProducts.length != 0" class="table mt-5 ml-auto mr-auto">
+                            <table v-if="cartProductsLength != 0" class="table mt-5 ml-auto mr-auto">
                                 <thead>
                                     <tr>
                                     <th scope="col" width="80" class="text-center"></th>
@@ -44,13 +44,9 @@
                                         <td colspan="4" class="text-right">總計</td>
                                         <td class="text-right">{{ cartTotal | currency }}</td>
                                     </tr>
-                                    <tr v-if="cartFinalPrice !== cartTotal">
-                                        <td colspan="4" class="text-right text-primary font-weight-bold">折扣價</td>
-                                        <td class="text-right text-primary font-weight-bold">{{ cartFinalPrice | currency }}</td>
-                                    </tr>
                                 </tfoot>
                             </table>
-                            <div class="text-center h6 mt-4 text-secondary" v-if="cartProducts.length == 0">
+                            <div class="text-center h6 mt-4 text-secondary" v-if="cartProductsLength == 0">
                                 目前尚未選購商品唷！
                             </div>
                         </div>
@@ -67,33 +63,20 @@
 
 <script>
 import $ from 'jquery';
+import { mapGetters, mapActions } from 'vuex';
     export default{
         data(){
             return{
-                cartProducts: [],
                 cartTotalPrice: 0,
                 cartFinalPrice: 0,
-                status: {
-                    loadingItem: '',
-                },
+               
             }
         },
         methods: {
             openCart(){
                 $('#cartModal').modal('show');
             },
-            getCart(id){
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-                const vm = this;
-                vm.status.loadingItem = id;
-                this.$http.get(api).then((response) => {
-                    // console.log(response.data)
-                    vm.cartProducts = response.data.data.carts;
-                    vm.cartFinalPrice = response.data.data.final_total;
-                    vm.status.loadingItem = '';
-                    vm.getCart();
-                })
-            },
+            ...mapActions(['getCart']),
             removeCartItem(id){
                 const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
                 const vm = this;
@@ -106,7 +89,7 @@ import $ from 'jquery';
                 })
             },
             movetoPayment(){
-                if(this.cartProducts.length !== 0){
+                if(this.cartProductsLength !== 0){
                     this.$router.push('/customer_checkout');
                     $('#cartModal').modal('hide');         
                 }else{
@@ -123,7 +106,8 @@ import $ from 'jquery';
                     vm.cartTotalPrice += vm.cartProducts[i].total;
                 }
                 return vm.cartTotalPrice;
-            }
+            },
+            ...mapGetters(['cartProductsLength', 'cartProducts']),
         },
         created(){
             this.getCart();

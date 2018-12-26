@@ -38,10 +38,12 @@
 
 <script>
 import $ from 'jquery';
+import { mapGetters, mapActions } from 'vuex';
+
     export default{
         data(){
             return{
-                products: [],
+                // products: [],
                 product: {},
                 status: {
                     loadingItem: '',
@@ -49,16 +51,7 @@ import $ from 'jquery';
             }
         },
         methods: {
-            getProducts(page = 1){
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
-                const vm = this;
-                vm.$store.dispatch('updateLoading', true);
-                this.$http.get(api).then((response) => {
-                console.log(response.data)
-                vm.$store.dispatch('updateLoading', false);
-                vm.products = response.data.products;
-                })
-            },
+            ...mapActions(['getProducts']),
             getProduct(id){
                 const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
                 const vm = this;
@@ -80,10 +73,16 @@ import $ from 'jquery';
                 this.$http.post(api, {data: cart}).then((response) => {
                 console.log(response.data)
                 vm.status.loadingItem = '';
-                $('#productModal').modal('hide');
+                vm.getCart();
                 vm.$bus.$emit('message:push', '加到購物車囉！', 'success');
                 })
             },
+            getCart(id){
+                this.$store.dispatch('getCart', id);
+            },
+        },
+        computed: {
+            ...mapGetters(['products']),
         },
         created(){
             this.getProducts();
